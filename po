@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Konami | تكريم اللاعب 3MK_S_H_E_N_O</title>
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/0/02/Konami_Logo.svg">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0e0e0e, #1a1a1a);
+      color: #fff;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      background: #141414;
+      border: 1px solid #444;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.2);
+      max-width: 400px;
+      width: 90%;
+    }
+    .logo {
+      font-size: 2rem;
+      background: white;
+      color: red;
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: inline-block;
+    }
+    h1 {
+      color: #ff2a2a;
+      font-size: 1.8rem;
+    }
+    p {
+      margin: 1rem 0;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+    .hidden {
+      display: none;
+    }
+    .button {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      background: #ff2a2a;
+      color: white;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+    .button:hover {
+      background: #e80000;
+    }
+    .input {
+      width: 100%;
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+    }
+    .code-box {
+      background: #222;
+      border: 1px dashed #888;
+      padding: 0.8rem;
+      font-size: 1.1rem;
+      margin: 1rem 0;
+      letter-spacing: 2px;
+      user-select: all;
+    }
+    .countdown {
+      font-size: 1.1rem;
+      color: #00ffcc;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="mainContent">
+    <div class="logo">KONAMI</div>
+    <h1>تهانينا، 3MK_S_H_E_N_O! 🎖️</h1>
+    <p>
+      لقد تم اختيارك ضمن قائمة لاعبي <strong>Konami Test Player Program</strong> - الشرق الأوسط.<br>
+      نشكرك على التزامك اليومي بلعب ™eFootball، وستحصل على مكافأة قدرها:<br>
+      <strong>5000 myClub Coins 💰</strong>
+    </p>
+    <button class="button" onclick="showLogin()">استلام المكافأة</button>
+  </div>
+
+  <div class="container hidden" id="loginForm">
+    <h2>تسجيل الدخول بحساب ™eFootball</h2>
+    <input type="email" id="email" class="input" placeholder="البريد الإلكتروني">
+    <input type="password" id="password" class="input" placeholder="كلمة السر">
+    <button class="button" onclick="submitLogin()">تأكيد</button>
+    <button class="button" onclick="goBack()">🔙 رجوع</button>
+  </div>
+
+  <div class="container hidden" id="confirmation">
+    <h2>✅ تم تأكيد الحساب</h2>
+    <p>سيتم إرسال العملات إلى حسابك خلال 24 ساعة.</p>
+    <div id="codeContainer" class="hidden">
+      <p>كود المكافأة:</p>
+      <div class="code-box">KONAMI-5000-XTRA-9X7D</div>
+      <div class="countdown" id="countdown"></div>
+    </div>
+    <button class="button" onclick="goBack()">🔙 رجوع</button>
+  </div>
+
+  <script>
+    function showLogin() {
+      document.getElementById('mainContent').classList.add('hidden');
+      document.getElementById('loginForm').classList.remove('hidden');
+    }
+
+    function submitLogin() {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      if (!email || !password) {
+        alert('يرجى إدخال البيانات كاملة.');
+        return;
+      }
+      if (email !== 'shenoudaatf7@gmail.com') {
+        alert('❌ هذا بريد إلكتروني غير صحيح، يرجى إدخال البريد المرتبط بحسابك في ™eFootball.');
+        return;
+      }
+      document.getElementById('loginForm').classList.add('hidden');
+      document.getElementById('confirmation').classList.remove('hidden');
+      setTimeout(() => {
+        document.getElementById('codeContainer').classList.remove('hidden');
+        startCountdown();
+      }, 1500);
+    }
+
+    function startCountdown() {
+      const countdownEl = document.getElementById('countdown');
+      let seconds = 24 * 60 * 60;
+      const interval = setInterval(() => {
+        const hrs = Math.floor(seconds / 3600);
+        const mins = Math.floor((seconds % 3600) / 60);
+        const secs = seconds % 60;
+        countdownEl.textContent = `الوقت المتبقي: ${hrs} س ${mins} د ${secs} ث`;
+        seconds--;
+        if (seconds < 0) clearInterval(interval);
+      }, 1000);
+    }
+
+    function goBack() {
+      document.getElementById('mainContent').classList.remove('hidden');
+      document.getElementById('loginForm').classList.add('hidden');
+      document.getElementById('confirmation').classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
